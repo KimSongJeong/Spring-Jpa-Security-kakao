@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    url: jdbc:mariadb://3.39.233.7:3306/song?serverTimezone=Asia/Seoul
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: song
+    password: 1234
