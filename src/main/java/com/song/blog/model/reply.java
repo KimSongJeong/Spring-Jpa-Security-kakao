@@ -9,12 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,30 +24,27 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity
-public class board {
+public class reply {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(nullable = false, length = 100)
-	private String title;
-	
-	@Lob // 대용량 데이터일때 Lob
+	@Column(nullable = false, length = 200)
 	private String content;
 	
-	@ColumnDefault("0")
-	private int count;
+	@ManyToOne
+	@JoinColumn(name="boardId")
+	private board board;
 	
-	@ManyToOne	// Many = Board, User = One
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="userId")
-	private user userId;
-	
-	@OneToMany(mappedBy = "board",fetch=FetchType.EAGER)
-	// mappedBy 연관관계의 주인이 아님, FK가 아닌 것, DB에 컬럼을 만들지 않음
-	private java.util.List<reply> reply;
-	
+	private user user;
+
 	@CreationTimestamp
 	private Timestamp createDate;
 	
+	@Column(insertable=false, updatable=true)
+    @UpdateTimestamp
+    private Timestamp updateDate;
 }
