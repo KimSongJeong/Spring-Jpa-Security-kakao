@@ -33,14 +33,11 @@ public class user {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)	// 프로젝트에서 연결된 DB의 넘버링 전략을 따라간다.
 	private int id;
 	
-	@Column(nullable=false, length =30)
-	private String nickname;
+	@Column(nullable=false, length =100, unique=true)
+	private String username;
 	
 	@Column(nullable=false, length =100)
 	private String password;
-	
-	@Column(nullable=false, length =50)
-	private String phonenum;
 	
 	@Column(nullable=false, length =50)
 	private String email;
@@ -49,6 +46,9 @@ public class user {
 	@Enumerated(EnumType.STRING)
 	private RoleType role;
 
+//	카카오, 구글, 네이버 등 로그인기능을 사용한 사용자인지 체크
+	private String oauth;
+	
 	@CreationTimestamp
 	private Timestamp createDate;
 	

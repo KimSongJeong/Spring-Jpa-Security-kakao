@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.song.blog.common.dto.ReplySaveRequestDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -40,6 +42,7 @@ public class reply {
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="userId")
 	private user user;
+	
 
 	@CreationTimestamp
 	private Timestamp createDate;
@@ -47,4 +50,14 @@ public class reply {
 	@Column(insertable=false, updatable=true)
     @UpdateTimestamp
     private Timestamp updateDate;
+
+	@Override
+	public String toString() {
+		return "reply [id=" + id + ", content=" + content + ", board=" + board + ", user=" + user + ", createDate="
+				+ createDate + ", updateDate=" + updateDate + "]";
+	}
+	
+
+	
+	
 }
